@@ -67,6 +67,7 @@ public class AcessoController {
 	public ResponseEntity<Object> cadastrar(@Valid @RequestBody AcessoDto acessoDto) {
 		if(empregadoRepository.findById(acessoDto.getEmpregadoId()).isPresent()) {
 			AcessoModel acesso = modelMapper.map(acessoDto, AcessoModel.class);
+			acesso.setAcessoId(null);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(acessoRepository.save(acesso));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Empregado não cadastrado");
